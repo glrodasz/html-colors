@@ -39,30 +39,30 @@ export default function Home() {
       style={{ backgroundColor: selectedColor || undefined }}
     >
       <div className="max-w-7xl mx-auto">
-        <header className="text-center mb-12">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-balance mb-4 tracking-tight">
+        <header className="text-center mb-16 sm:mb-20">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-balance mb-6 sm:mb-8 tracking-tight leading-[1.1] sm:leading-[1.05]">
             HTML Named Colors
           </h1>
           <p
-            className={`text-lg sm:text-xl max-w-2xl mx-auto text-pretty mb-8 ${isDarkColor ? "text-white/90" : "text-muted-foreground"}`}
+            className={`text-lg sm:text-xl lg:text-2xl max-w-2xl mx-auto text-pretty mb-10 sm:mb-12 leading-relaxed font-light ${isDarkColor ? "text-white/90" : "text-muted-foreground"}`}
           >
             Did you know? You can use these color names directly in CSS without hex codes!
           </p>
 
           <div
-            className={`max-w-xl mx-auto rounded-lg p-6 shadow-lg ${isDarkColor ? "bg-white/10 backdrop-blur" : "bg-card border"}`}
+            className={`max-w-xl mx-auto rounded-lg p-6 sm:p-8 shadow-lg ${isDarkColor ? "bg-white/10 backdrop-blur" : "bg-card border"}`}
           >
-            <p className={`text-sm font-semibold mb-3 ${isDarkColor ? "text-white/80" : "text-muted-foreground"}`}>
+            <p className={`text-xs sm:text-sm font-semibold mb-4 tracking-wide uppercase ${isDarkColor ? "text-white/80" : "text-muted-foreground"}`}>
               CSS Example:
             </p>
             <pre
-              className={`text-left font-mono text-sm sm:text-base p-4 rounded ${isDarkColor ? "bg-black/30" : "bg-muted"}`}
+              className={`text-left font-mono text-xs sm:text-sm md:text-base p-5 sm:p-6 rounded leading-relaxed ${isDarkColor ? "bg-black/40 text-white/95" : "bg-muted"}`}
             >
-              <code className={isDarkColor ? "text-white" : ""}>
+              <code className={isDarkColor ? "text-white/95" : ""}>
                 {`button {\n  background-color: ${selectedColor || "Tomato"};\n  color: white;\n}`}
               </code>
             </pre>
-            <p className={`text-xs mt-3 ${isDarkColor ? "text-white/70" : "text-muted-foreground"}`}>
+            <p className={`text-xs sm:text-sm mt-4 leading-relaxed ${isDarkColor ? "text-white/70" : "text-muted-foreground"}`}>
               Click any color below to see it in action!
             </p>
           </div>
@@ -79,8 +79,8 @@ export default function Home() {
           ))}
         </div>
 
-        <footer className={`mt-20 text-center text-sm ${isDarkColor ? "text-white/70" : "text-muted-foreground"}`}>
-          <p>{colors.length} hand-picked colors from the HTML color palette</p>
+        <footer className={`mt-24 sm:mt-28 lg:mt-32 text-center text-sm sm:text-base ${isDarkColor ? "text-white/70" : "text-muted-foreground"}`}>
+          <p className="leading-relaxed">{colors.length} hand-picked colors from the HTML color palette</p>
         </footer>
       </div>
     </main>
