@@ -39,6 +39,11 @@ export function ColorScenarios({ color }: ColorScenariosProps) {
   )
 
   const darkened = `color-mix(in oklab, ${color} 80%, black)`
+  const isLightColor = contrast === "#0a0a0a"
+  const invertContainer = !isLightColor && tab !== "ui"
+  const containerClass = invertContainer
+    ? "bg-foreground text-background border border-transparent"
+    : "bg-card text-foreground border border-foreground/20"
 
   return (
     <section aria-label="Color scenarios" className="relative">
@@ -70,9 +75,15 @@ export function ColorScenarios({ color }: ColorScenariosProps) {
         </span>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-6 sm:p-10 min-h-[320px] flex flex-col justify-center">
-        {tab === "buttons" && <ButtonsScenario color={color} contrast={contrast} darkened={darkened} />}
-        {tab === "typography" && <TypographyScenario color={color} />}
+      <div
+        className={`rounded-xl p-6 sm:p-10 min-h-[320px] flex flex-col justify-center transition-colors ${containerClass}`}
+      >
+        {tab === "buttons" && (
+          <ButtonsScenario color={color} contrast={contrast} darkened={darkened} />
+        )}
+        {tab === "typography" && (
+          <TypographyScenario color={color} inverted={invertContainer} />
+        )}
         {tab === "ui" && <UIMockScenario color={color} contrast={contrast} />}
       </div>
 
@@ -131,7 +142,14 @@ function ButtonsScenario({
   )
 }
 
-function TypographyScenario({ color }: { color: string }) {
+function TypographyScenario({
+  color,
+  inverted,
+}: {
+  color: string
+  inverted: boolean
+}) {
+  const bodyClass = inverted ? "text-background/70" : "text-muted-foreground"
   return (
     <div className="space-y-4">
       <p
@@ -140,7 +158,7 @@ function TypographyScenario({ color }: { color: string }) {
       >
         The quick brown fox
       </p>
-      <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
+      <p className={`text-base sm:text-lg max-w-2xl ${bodyClass}`}>
         <span style={{ color }} className="font-semibold">Inline text</span> reads fine
         at body sizes. Notice how <span style={{ color }} className="underline">links</span> and
         <span style={{ color }} className="font-mono"> `code`</span> spans pick up the color.
