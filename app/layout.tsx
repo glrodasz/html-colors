@@ -1,16 +1,39 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Archivo_Black, Geist_Mono, Space_Grotesk } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
+const archivoBlack = Archivo_Black({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display",
+})
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
+
+const title = "Guillermo's favorite HTML colors"
+const description =
+  "I just keep forgetting the name of the HTML colors, and they are some of my favorite ones, I would like to easily access them so that's why I built this website."
 
 export const metadata: Metadata = {
-  title: "My Favorite Colors - HTML Color Showcase",
-  description: "A beautiful showcase of my favorite HTML named colors",
+  title,
+  description,
   generator: "v0.app",
+  openGraph: {
+    title,
+    description,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    creator: "@guillermorodas",
+  },
   icons: {
     icon: [
       {
@@ -37,7 +60,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
+      <body
+        className={`${spaceGrotesk.variable} ${archivoBlack.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}
+      >
         {children}
         <Analytics />
       </body>

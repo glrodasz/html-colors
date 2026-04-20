@@ -1,8 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Card } from "@/components/ui/card"
-import { Check, Copy } from "lucide-react"
+import { useEffect, useState } from "react"
 
 interface ColorCardProps {
   colorName: string
@@ -11,103 +9,57 @@ interface ColorCardProps {
 }
 
 export function ColorCard({ colorName, onColorSelect, isSelected }: ColorCardProps) {
-  const [copied, setCopied] = useState(false)
-  const [hexCode, setHexCode] = useState("#000000")
+  const [hexCode, setHexCode] = useState("")
   const [contrastColor, setContrastColor] = useState("#000000")
 
   useEffect(() => {
     if (typeof window === "undefined") return
 
-    const getHexCode = (colorName: string) => {
-      const tempEl = document.createElement("div")
-      tempEl.style.color = colorName
-      document.body.appendChild(tempEl)
-      const computedColor = window.getComputedStyle(tempEl).color
-      document.body.removeChild(tempEl)
+    const tempEl = document.createElement("div")
+    tempEl.style.color = colorName
+    document.body.appendChild(tempEl)
+    const computedColor = window.getComputedStyle(tempEl).color
+    document.body.removeChild(tempEl)
 
-      const rgb = computedColor.match(/\d+/g)
-      if (!rgb) return "#000000"
+    const rgb = computedColor.match(/\d+/g)
+    if (!rgb) return
 
-      const hex =
-        "#" +
-        rgb
-          .map((x) => {
-            const hexValue = Number.parseInt(x).toString(16)
-            return hexValue.length === 1 ? "0" + hexValue : hexValue
-          })
-          .join("")
+    const hex =
+      "#" +
+      rgb
+        .map((x) => {
+          const hexValue = Number.parseInt(x).toString(16)
+          return hexValue.length === 1 ? "0" + hexValue : hexValue
+        })
+        .join("")
+    setHexCode(hex.toUpperCase())
 
-      return hex.toUpperCase()
-    }
-
-    const getContrastColor = (colorName: string) => {
-      const tempEl = document.createElement("div")
-      tempEl.style.color = colorName
-      document.body.appendChild(tempEl)
-      const computedColor = window.getComputedStyle(tempEl).color
-      document.body.removeChild(tempEl)
-
-      const rgb = computedColor.match(/\d+/g)
-      if (!rgb) return "#000000"
-
-      const brightness =
-        (Number.parseInt(rgb[0]) * 299 + Number.parseInt(rgb[1]) * 587 + Number.parseInt(rgb[2]) * 114) / 1000
-
-      return brightness > 155 ? "#000000" : "#ffffff"
-    }
-
-    setHexCode(getHexCode(colorName))
-    setContrastColor(getContrastColor(colorName))
+    const brightness =
+      (Number.parseInt(rgb[0]) * 299 + Number.parseInt(rgb[1]) * 587 + Number.parseInt(rgb[2]) * 114) / 1000
+    setContrastColor(brightness > 155 ? "#0a0a0a" : "#ffffff")
   }, [colorName])
 
-  const handleClick = async () => {
-    onColorSelect(colorName)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
   return (
-    <Card
-      className={`group relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer ${
-        isSelected ? "ring-4 ring-primary shadow-2xl scale-105" : "border-2"
-      }`}
-      onClick={handleClick}
+    <button
+      type="button"
+      onClick={() => onColorSelect(colorName)}
+      aria-pressed={isSelected}
+      aria-label={`Select ${colorName}`}
+      className={`group relative block aspect-square w-full overflow-hidden rounded-md transition-all duration-200 outline-none cursor-pointer ${
+        isSelected
+          ? "ring-4 ring-brand ring-offset-2 ring-offset-background scale-[1.03]"
+          : "ring-1 ring-border hover:ring-brand hover:-translate-y-1"
+      } focus-visible:ring-4 focus-visible:ring-brand`}
+      style={{ backgroundColor: colorName }}
     >
-      <div className="aspect-square w-full transition-all duration-300" style={{ backgroundColor: colorName }} />
-      <div className="p-3 bg-card">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex-1 min-w-0 overflow-hidden">
-            <h3 className="font-semibold text-sm tracking-tight truncate">{colorName}</h3>
-            <p className="text-xs text-muted-foreground font-mono">{hexCode}</p>
-          </div>
-          <button
-            className="p-1.5 rounded-md hover:bg-muted transition-colors flex-shrink-0"
-            aria-label={copied ? "Copied!" : "Copy hex code"}
-          >
-            {copied ? (
-              <Check className="w-3.5 h-3.5 text-green-600" />
-            ) : (
-              <Copy className="w-3.5 h-3.5 text-muted-foreground" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Hover overlay with color name */}
-      <div
-        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none p-4"
-        style={{ backgroundColor: colorName }}
+      <span className="sr-only">{colorName}</span>
+      <span
+        className="absolute inset-x-2 bottom-2 text-left text-[11px] font-semibold tracking-wide leading-tight"
+        style={{ color: contrastColor }}
       >
-        <span
-          className="font-bold tracking-wide text-center break-words"
-          style={{
-            color: contrastColor,
-            fontSize: `clamp(0.875rem, ${Math.max(0.875, 1.5 - colorName.length * 0.05)}rem, 1.5rem)`,
-          }}
-        >
-          {colorName}
-        </span>
-      </div>
-    </Card>
+        <span className="block truncate">{colorName}</span>
+        <span className="block font-mono text-[10px] opacity-70">{hexCode}</span>
+      </span>
+    </button>
   )
 }
