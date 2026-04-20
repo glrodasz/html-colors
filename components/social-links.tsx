@@ -9,7 +9,7 @@ const links = [
     ),
   },
   {
-    label: "@_guillermorodas",
+    label: "/_guillermorodas",
     href: "https://instagram.com/_guillermorodas",
     icon: (
       <svg
