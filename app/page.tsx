@@ -29,7 +29,7 @@ const colors = [
 ]
 
 export default function Home() {
-  const [selectedColor, setSelectedColor] = useState<string>("Tomato")
+  const [selectedColor, setSelectedColor] = useState<string>("Salmon")
 
   return (
     <main className="relative min-h-screen overflow-hidden">
