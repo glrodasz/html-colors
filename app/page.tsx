@@ -35,7 +35,7 @@ export default function Home() {
     <main className="relative min-h-screen overflow-hidden">
       <section className="relative px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 lg:pt-28 pb-12">
         <HeroShapes />
-        <div className="relative max-w-6xl">
+        <div className="relative max-w-6xl mx-auto">
           <p className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-muted-foreground mb-6">
             <span className="inline-block w-2 h-2 rounded-full bg-brand" />
             a tiny side project
@@ -54,13 +54,13 @@ export default function Home() {
       </section>
 
       <section className="px-4 sm:px-8 lg:px-12 pb-20">
-        <div className="max-w-6xl">
+        <div className="max-w-6xl mx-auto">
           <ColorScenarios color={selectedColor} />
         </div>
       </section>
 
       <section className="px-4 sm:px-8 lg:px-12 pb-20">
-        <div className="max-w-6xl">
+        <div className="max-w-6xl mx-auto">
           <div className="flex items-baseline justify-between mb-6 gap-4 flex-wrap">
             <h2 className="font-display text-2xl sm:text-3xl uppercase">
               The collection
@@ -83,7 +83,7 @@ export default function Home() {
       </section>
 
       <section className="px-4 sm:px-8 lg:px-12 pb-24">
-        <div className="max-w-6xl">
+        <div className="max-w-6xl mx-auto">
           <div className="rounded-2xl bg-brand text-brand-foreground p-8 sm:p-12 flex flex-col lg:flex-row lg:items-center gap-8">
             <div className="flex-1">
               <p className="text-5xl mb-4" aria-hidden="true">
@@ -108,7 +108,7 @@ export default function Home() {
       </section>
 
       <footer className="px-4 sm:px-8 lg:px-12 pb-12 text-sm text-muted-foreground">
-        <div className="max-w-6xl border-t border-border pt-8 flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto border-t border-border pt-8 flex flex-wrap items-center justify-between gap-4">
           <p>© {new Date().getFullYear()} Guillermo Rodas</p>
           <p className="font-mono text-xs">
             built with Next.js · styled with yellow
