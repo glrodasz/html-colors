@@ -1,11 +1,14 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { Check, ChevronDown } from "lucide-react"
 
 type Tab = "buttons" | "typography" | "ui"
 
 interface ColorScenariosProps {
   color: string
+  colors: string[]
+  onColorChange: (color: string) => void
 }
 
 function useContrast(color: string) {
@@ -25,7 +28,82 @@ function useContrast(color: string) {
   return contrast
 }
 
-export function ColorScenarios({ color }: ColorScenariosProps) {
+function ColorDropdown({
+  color,
+  colors,
+  onColorChange,
+}: {
+  color: string
+  colors: string[]
+  onColorChange: (color: string) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClick)
+    return () => document.removeEventListener("mousedown", handleClick)
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative ml-auto">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-secondary hover:bg-muted transition-colors font-mono text-xs text-foreground cursor-pointer"
+        aria-expanded={open}
+        aria-haspopup="listbox"
+      >
+        <span
+          className="w-3 h-3 rounded-sm flex-shrink-0 border border-foreground/10"
+          style={{ backgroundColor: color }}
+        />
+        {color}
+        <ChevronDown
+          className={`w-3 h-3 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      {open && (
+        <div
+          role="listbox"
+          aria-label="Select color"
+          className="absolute right-0 top-full mt-1 z-50 bg-secondary rounded-lg border border-border shadow-lg max-h-60 overflow-y-auto min-w-[160px] py-1"
+        >
+          {colors.map((c) => (
+            <button
+              key={c}
+              type="button"
+              role="option"
+              aria-selected={c === color}
+              onClick={() => {
+                onColorChange(c)
+                setOpen(false)
+              }}
+              className={`flex items-center gap-2 w-full px-3 py-1.5 text-left font-mono text-xs hover:bg-muted transition-colors cursor-pointer ${
+                c === color ? "text-foreground" : "text-muted-foreground"
+              }`}
+            >
+              <span
+                className="w-3 h-3 rounded-sm flex-shrink-0 border border-foreground/10"
+                style={{ backgroundColor: c }}
+              />
+              {c}
+              {c === color && <Check className="w-3 h-3 ml-auto text-brand" />}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function ColorScenarios({ color, colors, onColorChange }: ColorScenariosProps) {
   const [tab, setTab] = useState<Tab>("buttons")
   const contrast = useContrast(color)
 
@@ -70,9 +148,7 @@ export function ColorScenarios({ color }: ColorScenariosProps) {
             )
           })}
         </div>
-        <span className="ml-auto font-mono text-xs text-muted-foreground">
-          {color}
-        </span>
+        <ColorDropdown color={color} colors={colors} onColorChange={onColorChange} />
       </div>
 
       <div
@@ -204,7 +280,7 @@ function UIMockScenario({ color, contrast }: { color: string; contrast: string }
         }`}
       >
         Your deploy is ready. Review the diff and roll it out to production whenever
-        you're ready.
+        you&apos;re ready.
       </p>
       <div className="flex items-center gap-3">
         <button

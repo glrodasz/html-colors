@@ -60,7 +60,7 @@ export default function Home() {
 
       <section className="px-4 sm:px-8 lg:px-12 pb-20">
         <div className="max-w-6xl mx-auto">
-          <ColorScenarios color={selectedColor} />
+          <ColorScenarios color={selectedColor} colors={colors} onColorChange={setSelectedColor} />
         </div>
       </section>
 
