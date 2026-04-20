@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ColorCard } from "@/components/color-card"
 import { ColorScenarios } from "@/components/color-scenarios"
 import { HeroShapes } from "@/components/hero-shapes"
@@ -36,6 +36,33 @@ const colors = [
 export default function Home() {
   const [selectedColor, setSelectedColor] = useState<string>("Salmon")
 
+  useEffect(() => {
+    const canvas = document.createElement("canvas")
+    canvas.width = 32
+    canvas.height = 32
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    const r = 6, s = 32
+    ctx.beginPath()
+    ctx.moveTo(r, 0)
+    ctx.arcTo(s, 0, s, s, r)
+    ctx.arcTo(s, s, 0, s, r)
+    ctx.arcTo(0, s, 0, 0, r)
+    ctx.arcTo(0, 0, s, 0, r)
+    ctx.closePath()
+    ctx.fillStyle = selectedColor
+    ctx.fill()
+    let link = document.querySelector<HTMLLinkElement>("#dynamic-favicon")
+    if (!link) {
+      link = document.createElement("link")
+      link.id = "dynamic-favicon"
+      link.rel = "icon"
+      link.type = "image/png"
+      document.head.appendChild(link)
+    }
+    link.href = canvas.toDataURL()
+  }, [selectedColor])
+
   return (
     <main className="relative min-h-screen overflow-hidden">
       <section className="relative px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 lg:pt-28 pb-12">
@@ -45,7 +72,7 @@ export default function Home() {
             <span className="inline-block w-2 h-2 rounded-full bg-brand" />
             a tiny side project
           </p>
-          <h1 className="font-display text-[14vw] sm:text-[10vw] lg:text-[8.5rem] leading-[0.88] tracking-tight uppercase">
+          <h1 className="font-display text-[14vw] sm:text-[10vw] lg:text-[8.5rem] leading-[0.88] tracking-tight uppercase [paint-order:stroke_fill] [-webkit-text-stroke:2px_black] sm:[-webkit-text-stroke:0px]">
             <span className="block">Guillermo&rsquo;s</span>
             <span className="block text-brand">favorite</span>
             <span className="block">HTML colors.</span>
@@ -60,7 +87,7 @@ export default function Home() {
 
       <section className="px-4 sm:px-8 lg:px-12 pb-20">
         <div className="max-w-6xl mx-auto">
-          <ColorScenarios color={selectedColor} />
+          <ColorScenarios color={selectedColor} colors={colors} onColorChange={setSelectedColor} />
         </div>
       </section>
 
