@@ -52,7 +52,7 @@ function ColorDropdown({
   }, [open])
 
   return (
-    <div ref={ref} className="relative ml-auto w-full sm:w-auto">
+    <div ref={ref} className="relative ml-auto flex-1 sm:flex-initial min-w-0">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -129,7 +129,7 @@ export function ColorScenarios({ color, colors, onColorChange }: ColorScenariosP
         <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground mr-2">
           Preview
         </span>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto order-last sm:order-none">
           {tabs.map((t) => {
             const active = tab === t.id
             return (
