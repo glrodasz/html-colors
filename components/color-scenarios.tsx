@@ -150,8 +150,16 @@ function TypographyScenario({ color }: { color: string }) {
 }
 
 function UIMockScenario({ color, contrast }: { color: string; contrast: string }) {
+  const isLightColor = contrast === "#0a0a0a"
+
   return (
-    <div className="max-w-md mx-auto w-full rounded-xl bg-foreground text-background p-6 shadow-lg">
+    <div
+      className={`max-w-md mx-auto w-full rounded-xl p-6 shadow-lg ${
+        isLightColor
+          ? "bg-background text-foreground border border-foreground/20"
+          : "bg-foreground text-background"
+      }`}
+    >
       <div className="flex items-center justify-between mb-4">
         <span
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold"
@@ -163,10 +171,20 @@ function UIMockScenario({ color, contrast }: { color: string; contrast: string }
           />
           Live
         </span>
-        <span className="text-xs text-background/60 font-mono">v1.2.0</span>
+        <span
+          className={`text-xs font-mono ${
+            isLightColor ? "text-muted-foreground" : "text-background/60"
+          }`}
+        >
+          v1.2.0
+        </span>
       </div>
       <h3 className="font-display text-2xl mb-1">New release shipped</h3>
-      <p className="text-sm text-background/70 mb-5">
+      <p
+        className={`text-sm mb-5 ${
+          isLightColor ? "text-muted-foreground" : "text-background/70"
+        }`}
+      >
         Your deploy is ready. Review the diff and roll it out to production whenever
         you're ready.
       </p>
