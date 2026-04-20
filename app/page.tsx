@@ -2,87 +2,124 @@
 
 import { useState } from "react"
 import { ColorCard } from "@/components/color-card"
+import { ColorScenarios } from "@/components/color-scenarios"
+import { HeroShapes } from "@/components/hero-shapes"
+import { SocialLinks } from "@/components/social-links"
 
 const colors = [
   "Salmon",
   "Coral",
   "Tomato",
-  "Gold",
-  "PapayaWhip",
+  "Crimson",
+  "Peru",
+  "Tan",
   "Moccasin",
+  "PapayaWhip",
+  "Gold",
   "Khaki",
-  "RebeccaPurple",
-  "Indigo",
   "Olive",
+  "ForestGreen",
   "Teal",
   "Turquoise",
+  "SkyBlue",
   "CornflowerBlue",
-  "Tan",
-  "Peru",
+  "Indigo",
+  "RebeccaPurple",
+  "Plum",
+  "HotPink",
+  "SeaShell",
   "Snow",
   "WhiteSmoke",
-  "SeaShell",
   "Gainsboro",
 ]
 
-const darkColors = ["RebeccaPurple", "Indigo", "Olive", "Teal", "Peru"]
-
 export default function Home() {
-  const [selectedColor, setSelectedColor] = useState<string | null>(null)
-
-  const isDarkColor = selectedColor ? darkColors.includes(selectedColor) : false
-  const textColorClass = isDarkColor ? "text-white" : "text-foreground"
+  const [selectedColor, setSelectedColor] = useState<string>("Salmon")
 
   return (
-    <main
-      className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500 ${textColorClass}`}
-      style={{ backgroundColor: selectedColor || undefined }}
-    >
-      <div className="max-w-7xl mx-auto">
-        <header className="text-center mb-16 sm:mb-20">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-balance mb-6 sm:mb-8 tracking-tight leading-[1.1] sm:leading-[1.05]">
-            HTML Named Colors
-          </h1>
-          <p
-            className={`text-lg sm:text-xl lg:text-2xl max-w-2xl mx-auto text-pretty mb-10 sm:mb-12 leading-relaxed font-light ${isDarkColor ? "text-white/90" : "text-muted-foreground"}`}
-          >
-            Did you know? You can use these color names directly in CSS without hex codes!
+    <main className="relative min-h-screen overflow-hidden">
+      <section className="relative px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 lg:pt-28 pb-12">
+        <HeroShapes />
+        <div className="relative max-w-6xl mx-auto">
+          <p className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-muted-foreground mb-6">
+            <span className="inline-block w-2 h-2 rounded-full bg-brand" />
+            a tiny side project
           </p>
+          <h1 className="font-display text-[14vw] sm:text-[10vw] lg:text-[8.5rem] leading-[0.88] tracking-tight uppercase">
+            <span className="block">Guillermo&rsquo;s</span>
+            <span className="block text-brand">favorite</span>
+            <span className="block">HTML colors.</span>
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed">
+            I just keep forgetting the name of the HTML colors, and they are some of my
+            favorite ones. I wanted somewhere I could easily look them up — so I built
+            this little site.
+          </p>
+        </div>
+      </section>
 
-          <div
-            className={`max-w-xl mx-auto rounded-lg p-6 sm:p-8 shadow-lg ${isDarkColor ? "bg-white/10 backdrop-blur" : "bg-card border"}`}
-          >
-            <p className={`text-xs sm:text-sm font-semibold mb-4 tracking-wide uppercase ${isDarkColor ? "text-white/80" : "text-muted-foreground"}`}>
-              CSS Example:
-            </p>
-            <pre
-              className={`text-left font-mono text-xs sm:text-sm md:text-base p-5 sm:p-6 rounded leading-relaxed ${isDarkColor ? "bg-black/40 text-white/95" : "bg-muted"}`}
-            >
-              <code className={isDarkColor ? "text-white/95" : ""}>
-                {`button {\n  background-color: ${selectedColor || "Tomato"};\n  color: white;\n}`}
-              </code>
-            </pre>
-            <p className={`text-xs sm:text-sm mt-4 leading-relaxed ${isDarkColor ? "text-white/70" : "text-muted-foreground"}`}>
-              Click any color below to see it in action!
+      <section className="px-4 sm:px-8 lg:px-12 pb-20">
+        <div className="max-w-6xl mx-auto">
+          <ColorScenarios color={selectedColor} />
+        </div>
+      </section>
+
+      <section className="px-4 sm:px-8 lg:px-12 pb-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-baseline justify-between mb-6 gap-4 flex-wrap">
+            <h2 className="font-display text-2xl sm:text-3xl uppercase">
+              The collection
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {colors.length} hand-picked names. Click one to see it in action.
             </p>
           </div>
-        </header>
-
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-3">
-          {colors.map((color) => (
-            <ColorCard
-              key={color}
-              colorName={color}
-              onColorSelect={setSelectedColor}
-              isSelected={selectedColor === color}
-            />
-          ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+            {colors.map((color) => (
+              <ColorCard
+                key={color}
+                colorName={color}
+                onColorSelect={setSelectedColor}
+                isSelected={selectedColor === color}
+              />
+            ))}
+          </div>
         </div>
+      </section>
 
-        <footer className={`mt-24 sm:mt-28 lg:mt-32 text-center text-sm sm:text-base ${isDarkColor ? "text-white/70" : "text-muted-foreground"}`}>
-          <p className="leading-relaxed">{colors.length} hand-picked colors from the HTML color palette</p>
-        </footer>
-      </div>
+      <section className="px-4 sm:px-8 lg:px-12 pb-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="rounded-2xl bg-brand text-brand-foreground p-8 sm:p-12 flex flex-col lg:flex-row lg:items-center gap-8">
+            <div className="flex-1">
+              <p className="text-5xl mb-4" aria-hidden="true">
+                👋
+              </p>
+              <h2 className="font-display text-3xl sm:text-4xl uppercase leading-tight mb-3">
+                Just saying hi?
+              </h2>
+              <p className="text-brand-foreground/80 max-w-xl">
+                Slide into my DMs on X or Instagram. Always happy to talk design,
+                engineering, or which shade of <em>Tomato</em> is objectively the best.
+              </p>
+            </div>
+            <div className="bg-background text-foreground rounded-xl p-6 w-full lg:w-auto lg:min-w-[320px]">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                Find me at
+              </p>
+              <SocialLinks />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="px-4 sm:px-8 lg:px-12 pb-12 text-sm text-muted-foreground">
+        <div className="max-w-6xl mx-auto border-t border-border pt-8 flex flex-wrap items-center justify-between gap-4">
+          <p>© {new Date().getFullYear()} Guillermo Rodas</p>
+          <p className="font-mono text-xs">
+            built with Next.js · styled with yellow
+          </p>
+        </div>
+      </footer>
     </main>
   )
 }
