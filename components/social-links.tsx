@@ -1,6 +1,6 @@
 const links = [
   {
-    label: "X · @guillermorodas",
+    label: "@guillermorodas",
     href: "https://x.com/guillermorodas",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="w-5 h-5" fill="currentColor">
@@ -9,7 +9,7 @@ const links = [
     ),
   },
   {
-    label: "Instagram · @_guillermorodas",
+    label: "@_guillermorodas",
     href: "https://instagram.com/_guillermorodas",
     icon: (
       <svg
