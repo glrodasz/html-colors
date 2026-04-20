@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ColorCard } from "@/components/color-card"
 import { ColorScenarios } from "@/components/color-scenarios"
 import { HeroShapes } from "@/components/hero-shapes"
@@ -35,6 +35,33 @@ const colors = [
 
 export default function Home() {
   const [selectedColor, setSelectedColor] = useState<string>("Salmon")
+
+  useEffect(() => {
+    const canvas = document.createElement("canvas")
+    canvas.width = 32
+    canvas.height = 32
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    const r = 6, s = 32
+    ctx.beginPath()
+    ctx.moveTo(r, 0)
+    ctx.arcTo(s, 0, s, s, r)
+    ctx.arcTo(s, s, 0, s, r)
+    ctx.arcTo(0, s, 0, 0, r)
+    ctx.arcTo(0, 0, s, 0, r)
+    ctx.closePath()
+    ctx.fillStyle = selectedColor
+    ctx.fill()
+    let link = document.querySelector<HTMLLinkElement>("#dynamic-favicon")
+    if (!link) {
+      link = document.createElement("link")
+      link.id = "dynamic-favicon"
+      link.rel = "icon"
+      link.type = "image/png"
+      document.head.appendChild(link)
+    }
+    link.href = canvas.toDataURL()
+  }, [selectedColor])
 
   return (
     <main className="relative min-h-screen overflow-hidden">
