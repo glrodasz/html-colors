@@ -52,11 +52,11 @@ function ColorDropdown({
   }, [open])
 
   return (
-    <div ref={ref} className="relative ml-auto flex-1 sm:flex-initial min-w-0">
+    <div ref={ref} className="relative sm:ml-auto">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center justify-between sm:justify-start gap-1.5 px-2.5 py-1.5 rounded-md bg-secondary hover:bg-muted transition-colors font-mono text-xs text-foreground cursor-pointer w-full sm:w-auto"
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-secondary hover:bg-muted transition-colors font-mono text-xs text-foreground cursor-pointer"
         aria-expanded={open}
         aria-haspopup="listbox"
       >
@@ -73,7 +73,7 @@ function ColorDropdown({
         <div
           role="listbox"
           aria-label="Select color"
-          className="absolute left-0 right-0 sm:left-auto sm:right-0 top-full mt-1 z-50 bg-secondary rounded-lg border border-border shadow-lg max-h-60 overflow-y-auto py-1"
+          className="absolute right-0 top-full mt-1 z-50 bg-secondary rounded-lg border border-border shadow-lg max-h-60 overflow-y-auto min-w-[160px] py-1"
         >
           {colors.map((c) => (
             <button
@@ -126,10 +126,10 @@ export function ColorScenarios({ color, colors, onColorChange }: ColorScenariosP
   return (
     <section aria-label="Color scenarios" className="relative">
       <div className="flex flex-wrap items-center gap-2 mb-6">
-        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground mr-2">
+        <span className="w-full sm:w-auto text-xs uppercase tracking-[0.2em] text-muted-foreground mr-2">
           Preview
         </span>
-        <div className="flex flex-wrap gap-2 w-full sm:w-auto order-last sm:order-none">
+        <div className="flex flex-wrap gap-2">
           {tabs.map((t) => {
             const active = tab === t.id
             return (
