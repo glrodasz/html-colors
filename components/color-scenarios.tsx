@@ -52,11 +52,11 @@ function ColorDropdown({
   }, [open])
 
   return (
-    <div ref={ref} className="relative ml-auto">
+    <div ref={ref} className="relative ml-auto w-full sm:w-auto">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-secondary hover:bg-muted transition-colors font-mono text-xs text-foreground cursor-pointer"
+        className="flex items-center justify-between sm:justify-start gap-1.5 px-2.5 py-1.5 rounded-md bg-secondary hover:bg-muted transition-colors font-mono text-xs text-foreground cursor-pointer w-full sm:w-auto"
         aria-expanded={open}
         aria-haspopup="listbox"
       >
@@ -73,7 +73,7 @@ function ColorDropdown({
         <div
           role="listbox"
           aria-label="Select color"
-          className="absolute right-0 top-full mt-1 z-50 bg-secondary rounded-lg border border-border shadow-lg max-h-60 overflow-y-auto min-w-[160px] py-1"
+          className="absolute left-0 right-0 sm:left-auto sm:right-0 top-full mt-1 z-50 bg-secondary rounded-lg border border-border shadow-lg max-h-60 overflow-y-auto py-1"
         >
           {colors.map((c) => (
             <button

@@ -45,7 +45,7 @@ export default function Home() {
             <span className="inline-block w-2 h-2 rounded-full bg-brand" />
             a tiny side project
           </p>
-          <h1 className="font-display text-[14vw] sm:text-[10vw] lg:text-[8.5rem] leading-[0.88] tracking-tight uppercase">
+          <h1 className="font-display text-[14vw] sm:text-[10vw] lg:text-[8.5rem] leading-[0.88] tracking-tight uppercase [paint-order:stroke_fill] [-webkit-text-stroke:2px_black] sm:[-webkit-text-stroke:0px]">
             <span className="block">Guillermo&rsquo;s</span>
             <span className="block text-brand">favorite</span>
             <span className="block">HTML colors.</span>
