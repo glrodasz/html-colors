@@ -52,28 +52,28 @@ function ColorDropdown({
   }, [open])
 
   return (
-    <div ref={ref} className="relative sm:ml-auto">
+    <div ref={ref} className="relative w-full sm:w-auto">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-secondary hover:bg-muted transition-colors font-mono text-xs text-foreground cursor-pointer"
+        className="flex items-center gap-2 w-full sm:w-auto px-4 py-3 rounded-md bg-secondary hover:bg-muted transition-colors font-mono text-sm text-foreground cursor-pointer"
         aria-expanded={open}
         aria-haspopup="listbox"
       >
         <span
-          className="w-3 h-3 rounded-sm flex-shrink-0 border border-foreground/10"
+          className="w-3.5 h-3.5 rounded-sm flex-shrink-0 border border-foreground/10"
           style={{ backgroundColor: color }}
         />
         {color}
         <ChevronDown
-          className={`w-3 h-3 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`}
+          className={`w-4 h-4 text-muted-foreground transition-transform ml-auto ${open ? "rotate-180" : ""}`}
         />
       </button>
       {open && (
         <div
           role="listbox"
           aria-label="Select color"
-          className="absolute right-0 top-full mt-1 z-50 bg-secondary rounded-lg border border-border shadow-lg max-h-60 overflow-y-auto min-w-[160px] py-1"
+          className="absolute left-0 top-full mt-1 z-50 bg-secondary rounded-lg border border-border shadow-lg max-h-60 overflow-y-auto min-w-full sm:min-w-[200px] py-1"
         >
           {colors.map((c) => (
             <button
@@ -85,12 +85,12 @@ function ColorDropdown({
                 onColorChange(c)
                 setOpen(false)
               }}
-              className={`flex items-center gap-2 w-full px-3 py-1.5 text-left font-mono text-xs hover:bg-muted transition-colors cursor-pointer ${
+              className={`flex items-center gap-2 w-full px-4 py-3 text-left font-mono text-sm hover:bg-muted transition-colors cursor-pointer ${
                 c === color ? "text-foreground" : "text-muted-foreground"
               }`}
             >
               <span
-                className="w-3 h-3 rounded-sm flex-shrink-0 border border-foreground/10"
+                className="w-3.5 h-3.5 rounded-sm flex-shrink-0 border border-foreground/10"
                 style={{ backgroundColor: c }}
               />
               {c}
@@ -125,8 +125,8 @@ export function ColorScenarios({ color, colors, onColorChange }: ColorScenariosP
 
   return (
     <section aria-label="Color scenarios" className="relative">
-      <div className="flex flex-wrap items-center gap-2 mb-6">
-        <span className="w-full sm:w-auto text-xs uppercase tracking-[0.2em] text-muted-foreground mr-2">
+      <div className="flex flex-col gap-2 mb-6">
+        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
           Preview
         </span>
         <div className="flex flex-wrap gap-2">
