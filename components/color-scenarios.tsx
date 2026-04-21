@@ -129,26 +129,28 @@ export function ColorScenarios({ color, colors, onColorChange }: ColorScenariosP
         <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
           Preview
         </span>
-        <div className="flex flex-wrap gap-2">
-          {tabs.map((t) => {
-            const active = tab === t.id
-            return (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => setTab(t.id)}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors cursor-pointer ${
-                  active
-                    ? "bg-brand text-brand-foreground"
-                    : "bg-secondary text-foreground hover:bg-muted"
-                }`}
-              >
-                {t.label}
-              </button>
-            )
-          })}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
+            {tabs.map((t) => {
+              const active = tab === t.id
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setTab(t.id)}
+                  className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors cursor-pointer ${
+                    active
+                      ? "bg-brand text-brand-foreground"
+                      : "bg-secondary text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              )
+            })}
+          </div>
+          <ColorDropdown color={color} colors={colors} onColorChange={onColorChange} />
         </div>
-        <ColorDropdown color={color} colors={colors} onColorChange={onColorChange} />
       </div>
 
       <div
