@@ -17,16 +17,38 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 const title = "Guillermo's favorite HTML colors"
 const description =
-  "I just keep forgetting the name of the HTML colors, and they are some of my favorite ones, I would like to easily access them so that's why I built this website."
+  "A hand-picked showcase of 24 HTML named colors I keep forgetting — my favorites, always one click away."
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://colors.guillermorodas.com"),
   title,
   description,
   generator: "v0.app",
+  applicationName: title,
+  authors: [{ name: "Guillermo Rodas", url: "https://guillermorodas.com" }],
+  creator: "Guillermo Rodas",
+  keywords: [
+    "HTML colors",
+    "CSS named colors",
+    "color palette",
+    "color reference",
+    "web design",
+    "named colors",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title,
     description,
     type: "website",
+    url: "/",
+    siteName: title,
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
