@@ -52,7 +52,7 @@ function ColorDropdown({
   }, [open])
 
   return (
-    <div ref={ref} className="relative sm:ml-auto">
+    <div ref={ref} className="relative ml-auto">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -125,10 +125,13 @@ export function ColorScenarios({ color, colors, onColorChange }: ColorScenariosP
 
   return (
     <section aria-label="Color scenarios" className="relative">
-      <div className="flex flex-wrap items-center gap-2 mb-6">
-        <span className="w-full sm:w-auto text-xs uppercase tracking-[0.2em] text-muted-foreground mr-2">
-          Preview
-        </span>
+      <div className="flex flex-col gap-2 mb-6">
+        <div className="flex items-center">
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Preview
+          </span>
+          <ColorDropdown color={color} colors={colors} onColorChange={onColorChange} />
+        </div>
         <div className="flex flex-wrap gap-2">
           {tabs.map((t) => {
             const active = tab === t.id
@@ -148,7 +151,6 @@ export function ColorScenarios({ color, colors, onColorChange }: ColorScenariosP
             )
           })}
         </div>
-        <ColorDropdown color={color} colors={colors} onColorChange={onColorChange} />
       </div>
 
       <div
